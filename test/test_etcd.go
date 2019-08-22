@@ -11,9 +11,9 @@ import (
         "fmt"
 
 	"github.com/sirupsen/logrus"
-	"github.com/cloud-barista/poc-cb-store/config"
-        "github.com/cloud-barista/poc-cb-store"
-	icbs "github.com/cloud-barista/poc-cb-store/interfaces"
+	"github.com/cloud-barista/cb-store/config"
+        "github.com/cloud-barista/cb-store"
+	icbs "github.com/cloud-barista/cb-store/interfaces"
 )
 
 var cblog *logrus.Logger

@@ -8,7 +8,7 @@
 package cbstore
 
 import (
-	icbs "github.com/cloud-barista/poc-cb-store/interfaces"
+	icbs "github.com/cloud-barista/cb-store/interfaces"
 )
 
 type LFSDriver struct{}

@@ -14,8 +14,8 @@ import (
 	"fmt"
 	"strconv"
 
-	"github.com/cloud-barista/poc-cb-store/config"
-	icbs "github.com/cloud-barista/poc-cb-store/interfaces"
+	"github.com/cloud-barista/cb-store/config"
+	icbs "github.com/cloud-barista/cb-store/interfaces"
 )
 
 var cli *clientv3.Client

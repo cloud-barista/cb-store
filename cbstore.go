@@ -8,10 +8,10 @@
 package cbstore
 
 import (
-	"github.com/cloud-barista/poc-cb-store/config"
-	icbs "github.com/cloud-barista/poc-cb-store/interfaces"
-	lfsdrv "github.com/cloud-barista/poc-cb-store/store-drivers/lfs-driver"
-	etcddrv "github.com/cloud-barista/poc-cb-store/store-drivers/etcd-driver"
+	"github.com/cloud-barista/cb-store/config"
+	icbs "github.com/cloud-barista/cb-store/interfaces"
+	lfsdrv "github.com/cloud-barista/cb-store/store-drivers/lfs-driver"
+	etcddrv "github.com/cloud-barista/cb-store/store-drivers/etcd-driver"
 )
 
 var configInfo *config.CBSTORECONFIG
