@@ -1,0 +1,9 @@
+#### Config for CB-Store ####
+
+# server type: LFS | ETCD
+storetype: ETCD
+
+
+etcd:
+  # etcd server, when ETCD typpe
+  etcdserverport: "129.254.175.43:2379"
