@@ -8,7 +8,7 @@ CB-Store is a common repository for managing Meta Info of Cloud-Barista.
   
   C.  $ source setup.env
   
-# 2.	example with ETCD V3.0
+# 2.	example with ETCD (Client V3.0)
   A.	https://github.com/cloud-barista/cb-store/blob/master/test/test_etcd.go
 
 # 3.	test example
