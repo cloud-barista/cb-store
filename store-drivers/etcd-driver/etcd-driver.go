@@ -72,7 +72,7 @@ func (etcdDriver *ETCDDriver) Get(key string) (*icbs.KeyValue, error) {
         return nil, fmt.Errorf("No Results with %s Key!!", key)
 }
 
-func (etcdDriver *ETCDDriver) GetAll(key string, sortAscend bool) ([]*icbs.KeyValue, error) {
+func (etcdDriver *ETCDDriver) GetList(key string, sortAscend bool) ([]*icbs.KeyValue, error) {
         config.Cblogger.Info("Key:" + key + ", sortAscend:" + strconv.FormatBool(sortAscend))
 
 	order := clientv3.SortAscend

@@ -16,6 +16,6 @@ type KeyValue struct {
 type Store interface {
 	Put(key string, value string) (error)
 	Get(key string) (*KeyValue, error)
-	GetAll(key string, sortAscend bool) ([]*KeyValue, error)
+	GetList(key string, sortAscend bool) ([]*KeyValue, error)
 	Delete(key string) (error)
 }

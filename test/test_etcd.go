@@ -64,19 +64,19 @@ func main() {
 
 
 
-        // ## GetAll
-        keyValueList, _ := store.GetAll("/", true) // true = Ascending
+        // ## GetList
+        keyValueList, _ := store.GetList("/", true) // true = Ascending
 
-        fmt.Println("=========================== GetAll(\"/\", Ascending)")
+        fmt.Println("=========================== GetList(\"/\", Ascending)")
         for _, ev := range keyValueList {
                 fmt.Println("<" + ev.Key + "> " + ev.Value)
         }
         fmt.Println("===========================")
 
-        // ## GetAll
-        keyValueList, _ = store.GetAll("/", false) // false = Descending
+        // ## GetList
+        keyValueList, _ = store.GetList("/", false) // false = Descending
 
-        fmt.Println("=========================== GetAll(\"/\", Descending)")
+        fmt.Println("=========================== GetList(\"/\", Descending)")
         for _, ev := range keyValueList {
                 fmt.Println("<" + ev.Key + "> " + ev.Value)
         }

@@ -23,7 +23,7 @@ func (lfsDriver *LFSDriver) Get(key string) (*icbs.KeyValue, error) {
 	return nil, nil
 }
 
-func (lfsDriver *LFSDriver) GetAll(key string, sortAscend bool) ([]*icbs.KeyValue, error) {
+func (lfsDriver *LFSDriver) GetList(key string, sortAscend bool) ([]*icbs.KeyValue, error) {
 
 	return nil, nil
 }
