@@ -28,7 +28,7 @@ CB-Store is a common repository for managing Meta Info of Cloud-Barista.
       =========================== Get("space key")
       </space key> space value5
       ===========================
-      =========================== GetAll("/", Ascending)
+      =========================== GetList("/", Ascending)
       </> root
       </a/b/c/123/d/e/f/g/h/i/j/k/l/m/n/o/p/q/r/s/t/u> value/value/value
       </key1> value1
@@ -40,7 +40,7 @@ CB-Store is a common repository for managing Meta Info of Cloud-Barista.
        value6
       </space key> space value5
       ===========================
-      =========================== GetAll("/", Descending)
+      =========================== GetList("/", Descending)
       </space key> space value5
       </newline
        key> newline
