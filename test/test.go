@@ -42,12 +42,15 @@ func main() {
 	}
 
 	// ### Put
+	fmt.Println("=========================== Put(...)")
 	for _, ev := range keyValueData {
+		fmt.Println("<" + ev.Key + "> " + ev.Value)
 		err := store.Put(ev.Key, ev.Value)
 		if err != nil {
 			cblog.Error(err)
 		}
 	}
+	fmt.Println("===========================")
 
 	// ## Get 
 	keyValue, _ := store.Get("/") // exact match
