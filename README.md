@@ -3,8 +3,10 @@ CB-Store is a common repository for managing Meta Info of Cloud-Barista.
 You can choose NUTSDB or ETCD for repository of CB-Store.
 
   A.	NUTSDB: Embedded Key-Value Store on the Local Filesysem.
+      - https://github.com/xujiajun/nutsdb
   
   B.	ETCD(Client V3.0): Distributed Key-Value Store
+      - https://github.com/etcd-io/etcd
 
 # 1.	install CB-Store library pkg
   A.	$ go get github.com/cloud-barista/cb-store
