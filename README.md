@@ -20,13 +20,11 @@ You can choose NUTSDB or ETCD for repository of CB-Store.
 # 2.	example & test
   A.  example: https://github.com/cloud-barista/cb-store/blob/master/test/test.go
   
-  B. install ETCD (Client V3.0)
+  B. install ETCD (Client V3.0): When using ETCD
     
   C.	$ cd test  
-  
-  D.  $ vi conf/store_conf.yaml # set up storetype(NUTSDB|ETCD)
-  
-  E.	$ go run test.go 
+    
+  .	$ go run test.go 
 
       …
       =========================== Put(...)
