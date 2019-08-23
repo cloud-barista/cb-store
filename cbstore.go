@@ -10,7 +10,7 @@ package cbstore
 import (
 	"github.com/cloud-barista/cb-store/config"
 	icbs "github.com/cloud-barista/cb-store/interfaces"
-	lfsdrv "github.com/cloud-barista/cb-store/store-drivers/lfs-driver"
+	nutsdrv "github.com/cloud-barista/cb-store/store-drivers/nutsdb-driver"
 	etcddrv "github.com/cloud-barista/cb-store/store-drivers/etcd-driver"
 )
 
@@ -23,9 +23,9 @@ func init() {
 
 // initialize db
 func InitStore() {
-	if configInfo.STORETYPE == "LFS" {
+	if configInfo.STORETYPE == "NUTSDB" {
 		// 1. remove path: rm -rf ./meta_store/*
-		// @todo init lfs metainfo
+		// @todo init nutsdb metainfo
 	}
 	if configInfo.STORETYPE == "ETCD" {
 		// @todo init etcd metainfo
@@ -33,8 +33,8 @@ func InitStore() {
 }
 
 func GetStore() icbs.Store {
-	if configInfo.STORETYPE == "LFS" {
-		store := lfsdrv.LFSDriver{}
+	if configInfo.STORETYPE == "NUTSDB" {
+		store := nutsdrv.NUTSDBDriver{}
 		return &store
 	}
 	if configInfo.STORETYPE == "ETCD" {

@@ -23,7 +23,12 @@ import (
 )
 
 type CBSTORECONFIG struct {
-        STORETYPE string // option: LFS | ETCD
+        STORETYPE string // option: NUTSDB | ETCD
+
+        NUTSDB struct {
+                DBPATH string
+                SEGMENTSIZE int64
+        }
 
         ETCD struct {
                 ETCDSERVERPORT string

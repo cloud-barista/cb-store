@@ -11,8 +11,8 @@ import (
         "fmt"
 
 	"github.com/sirupsen/logrus"
-	"github.com/cloud-barista/cb-store/config"
         "github.com/cloud-barista/cb-store"
+	"github.com/cloud-barista/cb-store/config"
 	icbs "github.com/cloud-barista/cb-store/interfaces"
 )
 
