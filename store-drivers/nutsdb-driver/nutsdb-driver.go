@@ -8,8 +8,8 @@
 package cbstore
 
 import (
-	_ "io/ioutil"
-	_ "os"
+	"io/ioutil"
+	"os"
 
 	"github.com/cloud-barista/cb-store/config"
 	"github.com/xujiajun/nutsdb"
@@ -25,22 +25,8 @@ var (
 
 func init() {
 	fileDir := config.GetConfigInfos().NUTSDB.DBPATH
-        //fileDir := "/tmp/nutsdb_example"
 
         opt := nutsdb.DefaultOptions
-/* clean db files @todo make this into initDB() by powerkim, 2019.09.09
-        files, _ := ioutil.ReadDir(fileDir)
-        for _, f := range files {
-                name := f.Name()
-                if name != "" {
-                        //fmt.Println(fileDir + "/" + name)
-                        err := os.RemoveAll(fileDir + "/" + name)
-                        if err != nil {
-                                panic(err)
-                        }
-                }
-        }
-*/
         opt.Dir = fileDir
         opt.SegmentSize = config.GetConfigInfos().NUTSDB.SEGMENTSIZE
 
@@ -49,6 +35,22 @@ func init() {
         bucket = "bucketForString"
 }
 
+func (nutsdbDriver *NUTSDBDriver) InitDB() error {
+	fileDir := config.GetConfigInfos().NUTSDB.DBPATH
+        files, _ := ioutil.ReadDir(fileDir)
+        for _, f := range files {
+                name := f.Name()
+                if name != "" {
+                        //fmt.Println(fileDir + "/" + name)
+                        err := os.RemoveAll(fileDir + "/" + name)
+                        if err != nil {
+				config.Cblogger.Error(err)
+				return err
+                        }
+                }
+        }
+	return nil
+}
 
 func (nutsdbDriver *NUTSDBDriver) Put(key string, value string) error {
 	config.Cblogger.Info("Key:" + key  + ", value:" + value)

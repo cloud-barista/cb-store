@@ -43,6 +43,19 @@ func init() {
 }
 
 
+func (etcdDriver *ETCDDriver) InitDB() error {
+        config.Cblogger.Info("init db")
+
+        _, err := cli.Delete(ctx, "", clientv3.WithPrefix())
+
+        if err != nil {
+                config.Cblogger.Error(err)
+        }
+
+        return err
+	return nil
+}
+
 func (etcdDriver *ETCDDriver) Put(key string, value string) error {
 	config.Cblogger.Info("Key:" + key  + ", value:" + value)
 

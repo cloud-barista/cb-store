@@ -8,6 +8,8 @@
 package cbstore
 
 import (
+	"fmt"
+
 	"github.com/cloud-barista/cb-store/config"
 	icbs "github.com/cloud-barista/cb-store/interfaces"
 	nutsdrv "github.com/cloud-barista/cb-store/store-drivers/nutsdb-driver"
@@ -22,14 +24,19 @@ func init() {
 }
 
 // initialize db
-func InitStore() {
+func InitStore() error{
 	if configInfo.STORETYPE == "NUTSDB" {
 		// 1. remove path: rm -rf ./meta_store/*
-		// @todo init nutsdb metainfo
+		// init nutsdb metainfo
+		store := nutsdrv.NUTSDBDriver{}
+		return store.InitDB()
 	}
 	if configInfo.STORETYPE == "ETCD" {
-		// @todo init etcd metainfo
+		// init etcd metainfo
+		store := nutsdrv.NUTSDBDriver{}
+		return store.InitDB()
 	}
+	return fmt.Errorf("STORETYPE:" + configInfo.STORETYPE +" is not supported!!")
 }
 
 func GetStore() icbs.Store {
