@@ -8,9 +8,8 @@
 package cbstore
 
 import (
-	"fmt"
-	"io/ioutil"
-	"os"
+	_ "io/ioutil"
+	_ "os"
 
 	"github.com/cloud-barista/cb-store/config"
 	"github.com/xujiajun/nutsdb"
@@ -29,18 +28,19 @@ func init() {
         //fileDir := "/tmp/nutsdb_example"
 
         opt := nutsdb.DefaultOptions
-
+/* clean db files @todo make this into initDB() by powerkim, 2019.09.09
         files, _ := ioutil.ReadDir(fileDir)
         for _, f := range files {
                 name := f.Name()
                 if name != "" {
-                        fmt.Println(fileDir + "/" + name)
+                        //fmt.Println(fileDir + "/" + name)
                         err := os.RemoveAll(fileDir + "/" + name)
                         if err != nil {
                                 panic(err)
                         }
                 }
         }
+*/
         opt.Dir = fileDir
         opt.SegmentSize = config.GetConfigInfos().NUTSDB.SEGMENTSIZE
 

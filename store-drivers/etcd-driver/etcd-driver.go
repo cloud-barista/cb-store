@@ -25,7 +25,7 @@ type ETCDDriver struct{}
 
 func init() {
 	etcdServerPort := config.GetConfigInfos().ETCD.ETCDSERVERPORT  
-	config.Cblogger.Info("serverPort:" + etcdServerPort)
+//	config.Cblogger.Info("serverPort:" + etcdServerPort)
 
         etcdcli, err := clientv3.New(clientv3.Config{
                 Endpoints:   []string{"http://" + etcdServerPort}, // @TODO set multiple Server
