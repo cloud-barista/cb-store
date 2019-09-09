@@ -12,6 +12,7 @@ import (
 
 	"github.com/sirupsen/logrus"
         "github.com/cloud-barista/cb-store"
+        "github.com/cloud-barista/cb-store/utils"
 	"github.com/cloud-barista/cb-store/config"
 	icbs "github.com/cloud-barista/cb-store/interfaces"
 )
@@ -85,6 +86,36 @@ func main() {
                 fmt.Println("<" + ev.Key + "> " + ev.Value)
         }
         fmt.Println("===========================")
+
+        // ## CheckNodeValue
+        ret := utils.CheckNodeValue("/key1/key2/key3", 2, "key2")
+
+        fmt.Println("===========================  utils.CheckNodeValue(\"/key1/key2/key3\", 2, \"key2\")")
+        fmt.Printf("<exist?> %v\n", ret)
+
+        ret2:= utils.CheckNodeValue("/key1/key2/key3", 2, "aws")
+
+        fmt.Println("===========================  utils.CheckNodeValue(\"/key1/key2/key3\", 2, \"aws\")")
+        fmt.Printf("<exist?> %v\n", ret2)
+
+        fmt.Println("===========================")
+
+
+        // ## Delete
+        for _, ev := range keyValueData {
+                err := store.Delete(ev.Key)
+                if err != nil {
+                        cblog.Error(err)
+                }
+        }
+
+        // ## GetNodeValue
+        value := utils.GetNodeValue("/key1/key2/key3", 2)
+
+        fmt.Println("===========================  utils.GetNodeValue(\"/key1/key2/key3\", 2)")
+        fmt.Println("<Value> " + value)
+        fmt.Println("===========================")
+
 
 	// ## Delete
 	for _, ev := range keyValueData {
