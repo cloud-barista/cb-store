@@ -77,6 +77,9 @@ func (nutsdbDriver *NUTSDBDriver) Get(key string) (*icbs.KeyValue, error) {
                         key := []byte(key)
                         e, err := tx.Get(bucket, key)
                         if err != nil {
+				if err.Error() == "key not found" {
+					return nil
+				}
 				config.Cblogger.Error(err)
                                 return err
                         }
@@ -99,6 +102,9 @@ func (nutsdbDriver *NUTSDBDriver) GetList(key string, sortAscend bool) ([]*icbs.
                         key := []byte(key)
                         entries, err := tx.PrefixScan(bucket, key, 10000)
                         if err != nil {
+				if err.Error() == "prefix scans not found" {
+					return nil
+				}
                                 config.Cblogger.Error(err)
                                 return err
                         }

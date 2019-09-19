@@ -126,5 +126,21 @@ func main() {
 	}
 
 
+	// ## empty result
+	keyValue, _ = store.Get("/powerkim/") // no key
+        fmt.Println("=========================== Get(): no key")
+	if keyValue != nil {
+		fmt.Println("<" + keyValue.Key + "> " + keyValue.Value)
+	}
+
+	keyValueList, _ = store.GetList("/powerkim/", true) // no key list
+        fmt.Println("=========================== GetList(): no key")
+        for _, ev := range keyValueList {
+                fmt.Println("<" + ev.Key + "> " + ev.Value)
+        }
+        fmt.Println("===========================")
+
+
+
         cblog.Info("finish test!!")
 }
