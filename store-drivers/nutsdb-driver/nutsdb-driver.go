@@ -97,7 +97,7 @@ func (nutsdbDriver *NUTSDBDriver) GetList(key string, sortAscend bool) ([]*icbs.
         if err := db.View(
                 func(tx *nutsdb.Tx) error {
                         key := []byte(key)
-                        entries, err := tx.PrefixScan(bucket, key, 100)
+                        entries, err := tx.PrefixScan(bucket, key, 10000)
                         if err != nil {
                                 config.Cblogger.Error(err)
                                 return err
