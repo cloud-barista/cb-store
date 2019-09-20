@@ -26,7 +26,7 @@ func init() {
 func main() {
 
         cblog.Info("start test!!")
-        fmt.Println("===========================")
+        fmt.Println("===========================initDB")
 
 	// ## init DB
 	err := cbstore.InitStore()
