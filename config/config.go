@@ -40,7 +40,8 @@ var configInfo *CBSTORECONFIG
 
 func init() {
         // cblog is a global variable.
-        Cblogger = cblog.GetLogger("CB-STORE")
+        //Cblogger = cblog.GetLogger("CB-STORE")
+        Cblogger = cblog.GetLogger("CLOUD-BARISTA") // by powerkim, 2019.09.24
 }
 
 
