@@ -140,7 +140,5 @@ func main() {
         }
         fmt.Println("===========================")
 
-
-
         cblog.Info("finish test!!")
 }
