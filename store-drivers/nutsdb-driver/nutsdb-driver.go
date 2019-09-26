@@ -71,26 +71,27 @@ func (nutsdbDriver *NUTSDBDriver) Put(key string, value string) error {
 func (nutsdbDriver *NUTSDBDriver) Get(key string) (*icbs.KeyValue, error) {
 	config.Cblogger.Info("Key:" + key)
 
-	var keyValue icbs.KeyValue
+	var keyValue *icbs.KeyValue
         if err := db.View(
                 func(tx *nutsdb.Tx) error {
                         key := []byte(key)
                         e, err := tx.Get(bucket, key)
                         if err != nil {
 				if err.Error() == "key not found" {
+					keyValue = nil
 					return nil
 				}
 				config.Cblogger.Error(err)
                                 return err
                         }
-			keyValue = icbs.KeyValue{string(key), string(e.Value)}
+			keyValue = &icbs.KeyValue{string(key), string(e.Value)}
 			return nil
                 }); err != nil {
 			config.Cblogger.Error(err)
 			return nil, err
 		}
 
-	return &keyValue, nil
+	return keyValue, nil
 }
 
 func (nutsdbDriver *NUTSDBDriver) GetList(key string, sortAscend bool) ([]*icbs.KeyValue, error) {

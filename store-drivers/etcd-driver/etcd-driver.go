@@ -11,7 +11,6 @@ import (
 	"go.etcd.io/etcd/clientv3"
 	"context"
 	"time"
-	"fmt"
 	"strconv"
 
 	"github.com/cloud-barista/cb-store/config"
@@ -82,7 +81,8 @@ func (etcdDriver *ETCDDriver) Get(key string) (*icbs.KeyValue, error) {
                 return &keyValue, nil
         }
 
-        return nil, fmt.Errorf("No Results with %s Key!!", key)
+        //return nil, fmt.Errorf("No Results with %s Key!!", key)
+        return nil, nil
 }
 
 func (etcdDriver *ETCDDriver) GetList(key string, sortAscend bool) ([]*icbs.KeyValue, error) {
