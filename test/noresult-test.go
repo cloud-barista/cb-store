@@ -25,6 +25,7 @@ func init() {
 	store = cbstore.GetStore()
 }
 
+
 func main() {
 
         cblog.Info("start test!!")
