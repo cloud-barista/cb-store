@@ -30,8 +30,7 @@ func main() {
 
 
         // ## GetList
-        //keyValueList, _ := store.GetList("/", true) // true = Ascending
-        keyValueList, _ := store.GetList("/cloud-info-spaces/drivers/post-test", true) // true = Ascending
+        keyValueList, _ := store.GetList("/", true) // true = Ascending
 
         fmt.Println("=========================== GetList(\"/\", Ascending)")
         for _, ev := range keyValueList {
