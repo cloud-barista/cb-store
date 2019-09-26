@@ -24,8 +24,8 @@ func init() {
 }
 
 // initialize db
-// This is not effective online.
 func InitStore() error{
+	// NUTSDB: If InitDB will be done online by other process, this is not effective until restart.
 	if configInfo.STORETYPE == "NUTSDB" {
 		// 1. remove path: rm -rf ./meta_store/*
 		// init nutsdb metainfo
@@ -42,6 +42,7 @@ func InitStore() error{
 
 // clean all
 func InitData() error{
+	// NUTSDB: If InitDB will be done online by other process, this is not effective until restart.
         if configInfo.STORETYPE == "NUTSDB" {
                 // 1. remove path: rm -rf ./meta_store/*
                 // init nutsdb metainfo

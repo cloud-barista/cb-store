@@ -39,7 +39,7 @@ func initialize() {
         bucket = "bucketForString"
 }
 
-// This is not effective online.
+// If InitDB will be done online by other process, this is not effective until restart.
 func (nutsdbDriver *NUTSDBDriver) InitDB() error {
 	fileDir := config.GetConfigInfos().NUTSDB.DBPATH
         files, _ := ioutil.ReadDir(fileDir)
@@ -56,14 +56,52 @@ func (nutsdbDriver *NUTSDBDriver) InitDB() error {
 	return nil
 }
 
+// 1. get All data
+// 2. delete All data
+// If InitDB will be done online by other process, this is not effective until restart.
 func (nutsdbDriver *NUTSDBDriver) InitData() error {
-	err := nutsdbDriver.InitDB()
-	if err != nil {
-		config.Cblogger.Error(err)
+        config.Cblogger.Info("Call InitData")
+
+	var keyList [][]byte
+
+	// get all data
+	if err := db.View(
+	func(tx *nutsdb.Tx) error {
+		entries, err := tx.GetAll(bucket)
+		if err != nil {
+			return err
+		}
+		keyList = make([][]byte, len(entries))
+		for count, entry := range entries {
+			keyList[count] = entry.Key
+		}
+		return nil
+	}); err != nil {
+		if err.Error() == "bucket is empty" {
+			return nil
+		}
+                config.Cblogger.Error(err)
 		return err
 	}
-	initialize()
-	return nil	
+
+
+	// delete all data
+        if err := db.Update(
+                func(tx *nutsdb.Tx) error {
+		for _, one := range keyList {
+			//key := []byte(one)
+			if err := tx.Delete(bucket, one); err != nil {
+				config.Cblogger.Error(err)
+				return err
+			}
+		} // end of for
+                return nil
+        }); err != nil {
+                config.Cblogger.Error(err)
+                return err
+        }
+        return nil
+
 }
 
 func (nutsdbDriver *NUTSDBDriver) Put(key string, value string) error {
