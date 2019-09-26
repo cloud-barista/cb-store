@@ -41,11 +41,23 @@ func init() {
 	ctx = context.Background()
 }
 
-
 func (etcdDriver *ETCDDriver) InitDB() error {
         config.Cblogger.Info("init db")
 
-        _, err := cli.Delete(ctx, "", clientv3.WithPrefix())
+        _, err := cli.Delete(ctx, "/", clientv3.WithPrefix()) // @todo
+
+        if err != nil {
+                config.Cblogger.Error(err)
+        }
+
+        return err
+        return nil
+}
+
+func (etcdDriver *ETCDDriver) InitData() error {
+        config.Cblogger.Info("init data")
+
+        _, err := cli.Delete(ctx, "/", clientv3.WithPrefix())
 
         if err != nil {
                 config.Cblogger.Error(err)

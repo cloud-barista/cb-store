@@ -15,6 +15,7 @@ type KeyValue struct {
 
 type Store interface {
 	InitDB() (error)
+	InitData() (error)
 	Put(key string, value string) (error)
 	Get(key string) (*KeyValue, error)
 	GetList(key string, sortAscend bool) ([]*KeyValue, error)

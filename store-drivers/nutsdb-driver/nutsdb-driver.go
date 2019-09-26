@@ -24,7 +24,11 @@ var (
 )
 
 func init() {
-	fileDir := config.GetConfigInfos().NUTSDB.DBPATH
+	initialize()
+}
+
+func initialize() {
+        fileDir := config.GetConfigInfos().NUTSDB.DBPATH
 
         opt := nutsdb.DefaultOptions
         opt.Dir = fileDir
@@ -35,13 +39,13 @@ func init() {
         bucket = "bucketForString"
 }
 
+// This is not effective online.
 func (nutsdbDriver *NUTSDBDriver) InitDB() error {
 	fileDir := config.GetConfigInfos().NUTSDB.DBPATH
         files, _ := ioutil.ReadDir(fileDir)
         for _, f := range files {
                 name := f.Name()
                 if name != "" {
-                        //fmt.Println(fileDir + "/" + name)
                         err := os.RemoveAll(fileDir + "/" + name)
                         if err != nil {
 				config.Cblogger.Error(err)
@@ -50,6 +54,16 @@ func (nutsdbDriver *NUTSDBDriver) InitDB() error {
                 }
         }
 	return nil
+}
+
+func (nutsdbDriver *NUTSDBDriver) InitData() error {
+	err := nutsdbDriver.InitDB()
+	if err != nil {
+		config.Cblogger.Error(err)
+		return err
+	}
+	initialize()
+	return nil	
 }
 
 func (nutsdbDriver *NUTSDBDriver) Put(key string, value string) error {

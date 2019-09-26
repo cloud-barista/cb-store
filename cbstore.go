@@ -24,6 +24,7 @@ func init() {
 }
 
 // initialize db
+// This is not effective online.
 func InitStore() error{
 	if configInfo.STORETYPE == "NUTSDB" {
 		// 1. remove path: rm -rf ./meta_store/*
@@ -33,11 +34,28 @@ func InitStore() error{
 	}
 	if configInfo.STORETYPE == "ETCD" {
 		// init etcd metainfo
-		store := nutsdrv.NUTSDBDriver{}
+		store := etcddrv.ETCDDriver{}
 		return store.InitDB()
 	}
 	return fmt.Errorf("STORETYPE:" + configInfo.STORETYPE +" is not supported!!")
 }
+
+// clean all
+func InitData() error{
+        if configInfo.STORETYPE == "NUTSDB" {
+                // 1. remove path: rm -rf ./meta_store/*
+                // init nutsdb metainfo
+                store := nutsdrv.NUTSDBDriver{}
+                return store.InitData()
+        }
+        if configInfo.STORETYPE == "ETCD" {
+                // init etcd metainfo
+                store := etcddrv.ETCDDriver{}
+                return store.InitData()
+        }
+        return fmt.Errorf("STORETYPE:" + configInfo.STORETYPE +" is not supported!!")
+}
+
 
 func GetStore() icbs.Store {
 	if configInfo.STORETYPE == "NUTSDB" {

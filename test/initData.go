@@ -21,6 +21,7 @@ var store icbs.Store
 
 func init() {
         cblog = config.Cblogger
+        store = cbstore.GetStore()
 }
 
 func main() {
@@ -28,8 +29,8 @@ func main() {
         cblog.Info("start test!!")
         fmt.Println("===========================initDB")
 
-	// ## init DB
-	err := cbstore.InitStore()
+	// ## init data
+	err := store.InitData()
 	if err != nil {
 		cblog.Error(err)
 	}
