@@ -68,7 +68,6 @@ func main() {
         fmt.Println("===========================")
 
 
-
         // ## GetList
         keyValueList, _ := store.GetList("/", true) // true = Ascending
 

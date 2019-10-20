@@ -29,6 +29,7 @@ func init() {
 
 func initialize() {
         fileDir := config.GetConfigInfos().NUTSDB.DBPATH
+        config.Cblogger.Info("######## dbfile: " + fileDir)
 
         opt := nutsdb.DefaultOptions
         opt.Dir = fileDir
@@ -154,6 +155,7 @@ func (nutsdbDriver *NUTSDBDriver) GetList(key string, sortAscend bool) ([]*icbs.
                 func(tx *nutsdb.Tx) error {
                         key := []byte(key)
                         entries, err := tx.PrefixScan(bucket, key, 10000)
+config.Cblogger.Errorf("================================:%v, %v", key, len(entries))
                         if err != nil {
 				if err.Error() == "prefix scans not found" {
 					return nil
