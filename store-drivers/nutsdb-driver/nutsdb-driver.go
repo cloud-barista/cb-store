@@ -10,6 +10,8 @@ package cbstore
 import (
 	"io/ioutil"
 	"os"
+	"strings"
+	"fmt"
 
 	"github.com/cloud-barista/cb-store/config"
 	"github.com/xujiajun/nutsdb"
@@ -27,8 +29,19 @@ func init() {
 	initialize()
 }
 
+func getFileDir() string {
+	fileDir := config.GetConfigInfos().NUTSDB.DBPATH
+	config.Cblogger.Info("######## dbfile: " + fileDir)
+
+	cbstoreRootPath := os.Getenv("CBSTORE_ROOT")
+	fileDir = strings.Replace(fileDir, "$CBSTORE_ROOT", cbstoreRootPath, 1)
+
+	return fileDir
+}
+
 func initialize() {
-        fileDir := config.GetConfigInfos().NUTSDB.DBPATH
+		fmt.Println("[DB file path] " + getFileDir())
+        fileDir := getFileDir()
         config.Cblogger.Info("######## dbfile: " + fileDir)
 
         opt := nutsdb.DefaultOptions
@@ -42,7 +55,7 @@ func initialize() {
 
 // If InitDB will be done online by other process, this is not effective until restart.
 func (nutsdbDriver *NUTSDBDriver) InitDB() error {
-	fileDir := config.GetConfigInfos().NUTSDB.DBPATH
+	fileDir := getFileDir()
         files, _ := ioutil.ReadDir(fileDir)
         for _, f := range files {
                 name := f.Name()
