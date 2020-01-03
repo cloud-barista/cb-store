@@ -40,7 +40,7 @@ func getFileDir() string {
 }
 
 func initialize() {
-		fmt.Println("getFileDir(): " + getFileDir())
+		fmt.Println("[DB file path] " + getFileDir())
         fileDir := getFileDir()
         config.Cblogger.Info("######## dbfile: " + fileDir)
 
