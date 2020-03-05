@@ -14,6 +14,7 @@ package config
 
 import (
 	"os"
+	"strings"
 	"io/ioutil"
 
         "github.com/sirupsen/logrus"
@@ -70,8 +71,38 @@ func GetConfigInfos() *CBSTORECONFIG {
 		panic(err)
         }
 
+	configInfo.NUTSDB.DBPATH = ReplaceEnvPath(configInfo.NUTSDB.DBPATH)
 	return configInfo
 }
+
+// $ABC/def ==> /abc/def
+func ReplaceEnvPath(str string) string {
+	if strings.Index(str, "$") == -1 {
+		return str
+	}
+
+	// ex) input "$CBSTORE_ROOT/meta_db/dat"
+	strList := strings.Split(str, "/")	
+	for n, one := range strList {
+		if strings.Index(one, "$") != -1 {
+			cbstoreRootPath := os.Getenv(strings.Trim(one, "$"))
+			if cbstoreRootPath == "" {
+				Cblogger.Error(one  +" is not set!")
+			}
+			strList[n] = cbstoreRootPath
+		}
+	}
+
+	var resultStr string
+	for _, one := range strList {
+		resultStr = resultStr + one + "/"
+	}
+	// ex) "/root/go/src/github.com/cloud-barista/cb-spider/meta_db/dat/"
+	resultStr = strings.TrimRight(resultStr, "/")
+	resultStr = strings.ReplaceAll(resultStr, "//", "/")
+	return resultStr
+}
+
 
 func GetConfigString(configInfos *CBSTORECONFIG) string {
         d, err := yaml.Marshal(configInfos)
