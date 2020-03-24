@@ -167,8 +167,8 @@ func (nutsdbDriver *NUTSDBDriver) GetList(key string, sortAscend bool) ([]*icbs.
         if err := db.View(
                 func(tx *nutsdb.Tx) error {
                         key := []byte(key)
-                        entries, resultNum, err := tx.PrefixScan(bucket, key, 3000, 10000)
-			fmt.Println(resultNum)
+                        entries, _, err := tx.PrefixScan(bucket, key, 1, 10000)
+	
 //config.Cblogger.Infof("================================:%v, %v", key, len(entries))
                         if err != nil {
 				if err.Error() == "prefix scans not found" {
