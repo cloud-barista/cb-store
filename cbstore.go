@@ -8,7 +8,6 @@
 package cbstore
 
 import (
-	"os"
 	"fmt"
 
 	"github.com/cloud-barista/cb-store/config"
