@@ -57,6 +57,11 @@ func GetConfigInfos() *CBSTORECONFIG {
 	}
 
         cbstoreRootPath := os.Getenv("CBSTORE_ROOT")
+	if cbstoreRootPath == "" {
+		Cblogger.Error("$CBSTORE_ROOT is not set!!")
+		os.Exit(1)
+	}
+
         data, err := load(cbstoreRootPath + "/conf/store_conf.yaml")
 
         if err != nil {

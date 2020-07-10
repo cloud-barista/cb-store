@@ -8,6 +8,7 @@
 package cbstore
 
 import (
+	"os"
 	"fmt"
 
 	"github.com/cloud-barista/cb-store/config"
@@ -19,7 +20,7 @@ import (
 var configInfo *config.CBSTORECONFIG
 
 func init() {
-	config.Cblogger.Info("calling!")
+	//config.Cblogger.Info("calling!")
 	configInfo = config.GetConfigInfos()
 }
 
