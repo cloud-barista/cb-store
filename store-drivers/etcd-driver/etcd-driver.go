@@ -9,11 +9,14 @@ package etcddriver
 
 import (
 	"context"
+	"errors"
 	"strconv"
 	"strings"
 	"time"
 
-	"go.etcd.io/etcd/clientv3"
+	// GetList 에서 ETCD 환경이 구성되지 않았을 경우에 No Response 상태 방지용.
+	"github.com/etcd-io/etcd/clientv3"
+	// "go.etcd.io/etcd/clientv3"
 
 	"github.com/cloud-barista/cb-store/config"
 	icbs "github.com/cloud-barista/cb-store/interfaces"
@@ -22,31 +25,40 @@ import (
 var cli *clientv3.Client
 var ctx context.Context
 
+// ETCD 환경이 제대로 구성되지 않았을 경우 처리용
+var errNoETCD = errors.New("no etcd environment available to connect")
+
 type ETCDDriver struct{}
 
 func init() {
-	etcdServerPort := config.GetConfigInfos().ETCD.ETCDSERVERPORT
-	//	config.Cblogger.Info("serverPort:" + etcdServerPort)
+	// 패키지 로드 검증용
+	// etcdServerPort := config.GetConfigInfos().ETCD.ETCDSERVERPORT
+	// //	config.Cblogger.Info("serverPort:" + etcdServerPort)
 
-	etcdcli, err := clientv3.New(clientv3.Config{
-		// Original
-		// Endpoints:   []string{"http://" + etcdServerPort}, // @TODO set multiple Server
-		// Modified by ccambomorris
-		Endpoints:   strings.Split(etcdServerPort, ","),
-		DialTimeout: 5 * time.Second,
-	})
+	// etcdcli, err := clientv3.New(clientv3.Config{
+	// 	// Original
+	// 	// Endpoints:   []string{"http://" + etcdServerPort}, // @TODO set multiple Server
+	// 	// Modified by ccambomorris
+	// 	Endpoints:   strings.Split(etcdServerPort, ","),
+	// 	DialTimeout: 5 * time.Second,
+	// })
 
-	//config.Cblogger.Infof("etcdcli: %#v",  etcdcli)
+	// //config.Cblogger.Infof("etcdcli: %#v",  etcdcli)
 
-	if err != nil {
-		config.Cblogger.Error(err)
-	}
+	// if err != nil {
+	// 	config.Cblogger.Error(err)
+	// }
 
-	cli = etcdcli
-	ctx = context.Background()
+	// cli = etcdcli
+	// ctx = context.Background()
 }
 
 func (etcdDriver *ETCDDriver) InitDB() error {
+	// ETCD 환경 확인
+	if nil == cli {
+		return errNoETCD
+	}
+
 	config.Cblogger.Info("init db")
 
 	_, err := cli.Delete(ctx, "/", clientv3.WithPrefix()) // @todo
@@ -60,6 +72,11 @@ func (etcdDriver *ETCDDriver) InitDB() error {
 }
 
 func (etcdDriver *ETCDDriver) InitData() error {
+	// ETCD 환경 확인
+	if nil == cli {
+		return errNoETCD
+	}
+
 	config.Cblogger.Info("init data")
 
 	_, err := cli.Delete(ctx, "/", clientv3.WithPrefix())
@@ -73,6 +90,11 @@ func (etcdDriver *ETCDDriver) InitData() error {
 }
 
 func (etcdDriver *ETCDDriver) Put(key string, value string) error {
+	// ETCD 환경 확인
+	if nil == cli {
+		return errNoETCD
+	}
+
 	config.Cblogger.Info("Key:" + key + ", value:" + value)
 
 	_, err := cli.Put(ctx, key, value)
@@ -85,6 +107,11 @@ func (etcdDriver *ETCDDriver) Put(key string, value string) error {
 }
 
 func (etcdDriver *ETCDDriver) Get(key string) (*icbs.KeyValue, error) {
+	// ETCD 환경 확인
+	if nil == cli {
+		return nil, errNoETCD
+	}
+
 	config.Cblogger.Info("Key:" + key)
 
 	resp, err := cli.Get(ctx, key)
@@ -103,6 +130,11 @@ func (etcdDriver *ETCDDriver) Get(key string) (*icbs.KeyValue, error) {
 }
 
 func (etcdDriver *ETCDDriver) GetList(key string, sortAscend bool) ([]*icbs.KeyValue, error) {
+	// ETCD 환경 확인
+	if nil == cli {
+		return nil, errNoETCD
+	}
+
 	config.Cblogger.Info("Key:" + key + ", sortAscend:" + strconv.FormatBool(sortAscend))
 
 	order := clientv3.SortAscend
@@ -127,6 +159,11 @@ func (etcdDriver *ETCDDriver) GetList(key string, sortAscend bool) ([]*icbs.KeyV
 }
 
 func (etcdDriver *ETCDDriver) Delete(key string) error {
+	// ETCD 환경 확인
+	if nil == cli {
+		return errNoETCD
+	}
+
 	config.Cblogger.Info("Key:" + key)
 
 	_, err := cli.Delete(ctx, key)
@@ -139,6 +176,33 @@ func (etcdDriver *ETCDDriver) Delete(key string) error {
 }
 
 func Close() {
-	cli.Close()
-	cli = nil
+	// ETCD 환경 확인
+	if nil != cli {
+		cli.Close()
+		cli = nil
+	}
+}
+
+// InitializeDriver - ETCD Driver 초기화
+func InitializeDriver() {
+	etcdServerPort := config.GetConfigInfos().ETCD.ETCDSERVERPORT
+	//	config.Cblogger.Info("serverPort:" + etcdServerPort)
+
+	etcdcli, err := clientv3.New(clientv3.Config{
+		// Original
+		// Endpoints:   []string{"http://" + etcdServerPort}, // @TODO set multiple Server
+
+		// ETCD Endpoints에 지정된 Server 들을 CLI 로 지정하는 방식 적용 (Modified by ccambomorris)
+		Endpoints:   strings.Split(etcdServerPort, ","),
+		DialTimeout: 5 * time.Second,
+	})
+
+	//config.Cblogger.Infof("etcdcli: %#v",  etcdcli)
+
+	if err != nil {
+		config.Cblogger.Error(err)
+	}
+
+	cli = etcdcli
+	ctx = context.Background()
 }
