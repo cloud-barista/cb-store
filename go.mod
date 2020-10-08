@@ -20,19 +20,17 @@ replace (
 
 require (
 	github.com/BurntSushi/toml v0.3.1 // indirect
-	github.com/cloud-barista/cb-log v0.1.1
+	github.com/cloud-barista/cb-log v0.2.0-cappuccino.0.20201008023843-31002c0a088d
 	github.com/coreos/etcd v3.3.18+incompatible // indirect
 	github.com/etcd-io/etcd v2.3.8+incompatible
 	github.com/gogo/protobuf v1.3.1 // indirect
 	github.com/golang/protobuf v1.4.2 // indirect
 	github.com/kr/pretty v0.1.0 // indirect
 	github.com/sirupsen/logrus v1.6.0
-	github.com/snowzach/rotatefilehook v0.0.0-20180327172521-2f64f265f58c // indirect
 	github.com/stretchr/testify v1.4.0 // indirect
 	github.com/xujiajun/nutsdb v0.5.1-0.20200320023740-0cc84000d103
 	golang.org/x/sys v0.0.0-20200615200032-f1bc736245b1 // indirect
 	gopkg.in/check.v1 v1.0.0-20190902080502-41f04d3bba15 // indirect
-	gopkg.in/natefinch/lumberjack.v2 v2.0.0 // indirect
 	gopkg.in/yaml.v2 v2.2.8 // indirect
 	gopkg.in/yaml.v3 v3.0.0-20200603094226-e3079894b1e8
 )
