@@ -28,6 +28,7 @@ var ctx context.Context
 // ETCD 환경이 제대로 구성되지 않았을 경우 처리용
 var errNoETCD = errors.New("no etcd environment available to connect")
 
+// ETCDDriver - ETCD 처리 정보 구조
 type ETCDDriver struct{}
 
 func init() {
@@ -53,6 +54,7 @@ func init() {
 	// ctx = context.Background()
 }
 
+// InitDB - ETCD의 데이터 초기화
 func (etcdDriver *ETCDDriver) InitDB() error {
 	// ETCD 환경 확인
 	if nil == cli {
@@ -68,9 +70,9 @@ func (etcdDriver *ETCDDriver) InitDB() error {
 	}
 
 	return err
-	return nil
 }
 
+// InitData - ETCD의 데이터 초기화
 func (etcdDriver *ETCDDriver) InitData() error {
 	// ETCD 환경 확인
 	if nil == cli {
@@ -86,9 +88,9 @@ func (etcdDriver *ETCDDriver) InitData() error {
 	}
 
 	return err
-	return nil
 }
 
+// Put - 지정한 키/값을 ETCD의 데이터로 추가
 func (etcdDriver *ETCDDriver) Put(key string, value string) error {
 	// ETCD 환경 확인
 	if nil == cli {
@@ -106,6 +108,7 @@ func (etcdDriver *ETCDDriver) Put(key string, value string) error {
 	return nil
 }
 
+// Get - 지정한 키의 값을 ETCD의 데이터에서 추출
 func (etcdDriver *ETCDDriver) Get(key string) (*icbs.KeyValue, error) {
 	// ETCD 환경 확인
 	if nil == cli {
@@ -121,7 +124,7 @@ func (etcdDriver *ETCDDriver) Get(key string) (*icbs.KeyValue, error) {
 	}
 
 	for _, ev := range resp.Kvs {
-		keyValue := icbs.KeyValue{string(ev.Key), string(ev.Value)}
+		keyValue := icbs.KeyValue{Key: string(ev.Key), Value: string(ev.Value)}
 		return &keyValue, nil
 	}
 
@@ -129,6 +132,7 @@ func (etcdDriver *ETCDDriver) Get(key string) (*icbs.KeyValue, error) {
 	return nil, nil
 }
 
+// GetList - 지정한 키와 정렬 조건을 기준으로 ETCD의 데이터에서 추출
 func (etcdDriver *ETCDDriver) GetList(key string, sortAscend bool) ([]*icbs.KeyValue, error) {
 	// ETCD 환경 확인
 	if nil == cli {
@@ -151,13 +155,14 @@ func (etcdDriver *ETCDDriver) GetList(key string, sortAscend bool) ([]*icbs.KeyV
 
 	keyValueList := make([]*icbs.KeyValue, len(resp.Kvs))
 	for k, ev := range resp.Kvs {
-		tmpOne := icbs.KeyValue{string(ev.Key), string(ev.Value)}
+		tmpOne := icbs.KeyValue{Key: string(ev.Key), Value: string(ev.Value)}
 		keyValueList[k] = &tmpOne
 	}
 
 	return keyValueList, nil
 }
 
+// Delete - 지정한 키의 데이터를 ETCD의 데이터에서 삭제
 func (etcdDriver *ETCDDriver) Delete(key string) error {
 	// ETCD 환경 확인
 	if nil == cli {
@@ -175,6 +180,7 @@ func (etcdDriver *ETCDDriver) Delete(key string) error {
 	return err
 }
 
+// Close - ETCD 클라이언트 종료
 func Close() {
 	// ETCD 환경 확인
 	if nil != cli {
