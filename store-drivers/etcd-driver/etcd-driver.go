@@ -181,12 +181,14 @@ func (etcdDriver *ETCDDriver) Delete(key string) error {
 }
 
 // Close - ETCD 클라이언트 종료
-func Close() {
+func (etcdDriver *ETCDDriver) Close() error {
 	// ETCD 환경 확인
 	if nil != cli {
 		cli.Close()
 		cli = nil
 	}
+
+	return nil
 }
 
 // InitializeDriver - ETCD Driver 초기화

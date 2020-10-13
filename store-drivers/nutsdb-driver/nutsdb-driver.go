@@ -16,6 +16,7 @@ import (
 	"github.com/xujiajun/nutsdb"
 )
 
+// NUTSDBDriver - NutsDB 처리 정보 구조
 type NUTSDBDriver struct{}
 
 var (
@@ -42,6 +43,8 @@ func initialize() {
 }
 
 // If InitDB will be done online by other process, this is not effective until restart.
+
+// InitDB - Database 초기화
 func (nutsdbDriver *NUTSDBDriver) InitDB() error {
 	fileDir := config.GetConfigInfos().NUTSDB.DBPATH
 	files, _ := ioutil.ReadDir(fileDir)
@@ -61,6 +64,8 @@ func (nutsdbDriver *NUTSDBDriver) InitDB() error {
 // 1. get All data
 // 2. delete All data
 // If InitDB will be done online by other process, this is not effective until restart.
+
+// InitData - 데이터 초기화
 func (nutsdbDriver *NUTSDBDriver) InitData() error {
 	config.Cblogger.Info("Call InitData")
 
@@ -102,9 +107,9 @@ func (nutsdbDriver *NUTSDBDriver) InitData() error {
 		return err
 	}
 	return nil
-
 }
 
+// Put - 지정한 키/값을 NutsDB 데이터로 추가
 func (nutsdbDriver *NUTSDBDriver) Put(key string, value string) error {
 	config.Cblogger.Info("Key:" + key + ", value:" + value)
 
@@ -121,6 +126,7 @@ func (nutsdbDriver *NUTSDBDriver) Put(key string, value string) error {
 	return nil
 }
 
+// Get - 지정한 키의 값을 NutsDB 데이터에서 추출
 func (nutsdbDriver *NUTSDBDriver) Get(key string) (*icbs.KeyValue, error) {
 	config.Cblogger.Info("Key:" + key)
 
@@ -137,7 +143,7 @@ func (nutsdbDriver *NUTSDBDriver) Get(key string) (*icbs.KeyValue, error) {
 				config.Cblogger.Error(err)
 				return err
 			}
-			keyValue = &icbs.KeyValue{string(key), string(e.Value)}
+			keyValue = &icbs.KeyValue{Key: string(key), Value: string(e.Value)}
 			return nil
 		}); err != nil {
 		config.Cblogger.Error(err)
@@ -147,6 +153,7 @@ func (nutsdbDriver *NUTSDBDriver) Get(key string) (*icbs.KeyValue, error) {
 	return keyValue, nil
 }
 
+// GetList - 지정한 키와 정렬 조건을 기준으로 NustDB 데이터에서 추출
 func (nutsdbDriver *NUTSDBDriver) GetList(key string, sortAscend bool) ([]*icbs.KeyValue, error) {
 	config.Cblogger.Info("Key:" + key)
 
@@ -166,12 +173,12 @@ func (nutsdbDriver *NUTSDBDriver) GetList(key string, sortAscend bool) ([]*icbs.
 			keyValueList = make([]*icbs.KeyValue, len(entries))
 			if sortAscend {
 				for k, entry := range entries {
-					tmpOne := icbs.KeyValue{string(entry.Key), string(entry.Value)}
+					tmpOne := icbs.KeyValue{Key: string(entry.Key), Value: string(entry.Value)}
 					keyValueList[k] = &tmpOne
 				}
 			} else {
 				for k, entry := range entries {
-					tmpOne := icbs.KeyValue{string(entry.Key), string(entry.Value)}
+					tmpOne := icbs.KeyValue{Key: string(entry.Key), Value: string(entry.Value)}
 					keyValueList[len(entries)-1-k] = &tmpOne
 				}
 			}
@@ -184,6 +191,7 @@ func (nutsdbDriver *NUTSDBDriver) GetList(key string, sortAscend bool) ([]*icbs.
 	return keyValueList, nil
 }
 
+// Delete - 지정한 키의 데이터를 NutsDB 데이터에서 삭제
 func (nutsdbDriver *NUTSDBDriver) Delete(key string) error {
 	config.Cblogger.Info("Key:" + key)
 
@@ -200,6 +208,15 @@ func (nutsdbDriver *NUTSDBDriver) Delete(key string) error {
 		return err
 	}
 	return nil
+}
+
+// Close - NutsDB 연결 해제
+func (nutsdbDriver *NUTSDBDriver) Close() error {
+	err := db.Close()
+	if nil != err {
+		config.Cblogger.Error(err)
+	}
+	return err
 }
 
 // InitializeDriver - NutsDB Driver 초기화
