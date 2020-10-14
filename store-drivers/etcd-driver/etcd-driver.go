@@ -16,6 +16,8 @@ import (
 
 	// GetList 에서 ETCD 환경이 구성되지 않았을 경우에 No Response 상태 방지용.
 	"github.com/etcd-io/etcd/clientv3"
+	"google.golang.org/grpc"
+
 	// "go.etcd.io/etcd/clientv3"
 
 	"github.com/cloud-barista/cb-store/config"
@@ -203,6 +205,7 @@ func InitializeDriver() {
 		// ETCD Endpoints에 지정된 Server 들을 CLI 로 지정하는 방식 적용 (Modified by ccambomorris)
 		Endpoints:   strings.Split(etcdServerPort, ","),
 		DialTimeout: 5 * time.Second,
+		DialOptions: []grpc.DialOption{grpc.WithBlock()},
 	})
 
 	//config.Cblogger.Infof("etcdcli: %#v",  etcdcli)
