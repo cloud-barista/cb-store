@@ -10,6 +10,7 @@ package cbstore
 import (
 	"io/ioutil"
 	"os"
+	"strings"
 
 	"github.com/cloud-barista/cb-store/config"
 	icbs "github.com/cloud-barista/cb-store/interfaces"
@@ -136,7 +137,7 @@ func (nutsdbDriver *NUTSDBDriver) Get(key string) (*icbs.KeyValue, error) {
 			key := []byte(key)
 			e, err := tx.Get(bucket, key)
 			if err != nil {
-				if err.Error() == "key not found" {
+				if strings.Contains(err.Error(), "key not found") {
 					keyValue = nil
 					return nil
 				}
