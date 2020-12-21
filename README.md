@@ -9,13 +9,9 @@ You can choose NUTSDB or ETCD for repository of CB-Store.
       - https://github.com/etcd-io/etcd
 
 # 1.	install CB-Store library pkg
-  A.	$ go get github.com/cloud-barista/cb-store
-  
-  - cf) if meet errors
-    - error msg: "gosrc/src/go.etcd.io/etcd/vendor/google.golang.org/grpc/clientconn.go:49:2: use of internal package google.golang.org/grpc/internal/resolver/dns not allowed"    
-    - sol: $ rm -rf $GOPATH/src/go.etcd.io/etcd/vendor/google.golang.org/grpc
-   
-  B.  export CBSTORE_ROOT=~/go/src/github.com/cloud-barista/cb-store
+  A.	$ go get github.com/cloud-barista/cb-store  
+ 
+  B.  $ export CBSTORE_ROOT=~/go/src/github.com/cloud-barista/cb-store
     
   C.  $ vi conf/store_conf.yaml # set up storetype(NUTSDB|ETCD)
   
