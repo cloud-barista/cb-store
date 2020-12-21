@@ -22,7 +22,7 @@ You can choose NUTSDB or ETCD for repository of CB-Store.
     
   C.	$ cd test  
     
-  .	$ go run test.go 
+  D.	$ go run test.go 
 
       …
       =========================== Put(...)
