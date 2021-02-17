@@ -1,6 +1,6 @@
 # cb-store
 [![GitHub go.mod Go version](https://img.shields.io/github/go-mod/go-version/cloud-barista/cb-store?label=go.mod)](https://github.com/cloud-barista/cb-store/blob/master/go.mod)
-[![GoDoc](https://godoc.org/github.com/cloud-barista/cb-store?status.svg)](https://pkg.go.dev/github.com/cloud-barista/cb-store@master)&nbsp;&nbsp;&nbsp;
+[![GoDoc](https://godoc.org/github.com/cloud-barista/cb-store?status.svg)](https://pkg.go.dev/github.com/cloud-barista/cb-store)&nbsp;&nbsp;&nbsp;
 [![Release Version](https://img.shields.io/github/v/release/cloud-barista/cb-store)](https://github.com/cloud-barista/cb-store/releases)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://github.com/cloud-barista/cb-store/blob/master/LICENSE)
 
