@@ -137,7 +137,7 @@ func (nutsdbDriver *NUTSDBDriver) Get(key string) (*icbs.KeyValue, error) {
 			key := []byte(key)
 			e, err := tx.Get(bucket, key)
 			if err != nil {
-				if strings.Contains(err.Error(), "key not found") {
+				if strings.Contains(err.Error(), "key not found") || strings.Contains(err.Error(), "not found bucket:") {
 					keyValue = nil
 					return nil
 				}
