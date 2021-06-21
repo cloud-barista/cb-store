@@ -1,6 +1,6 @@
 # v0.3.0-cappuccino (2020.12.10.)
 ### Feature
-- `go.mod` 파일 추가 (#17)
+- `go.mod` 파일 추가 [#17](https://github.com/cloud-barista/cb-store/pull/17)
 - ETCD client 가 제대로 구성되지 않을 경우에 Store 처리 메서드 호출되는 부분 검증 추가 (#19)
 
 ### Bug Fix
@@ -17,4 +17,3 @@
 - nutsdb 업데이트에 대한 대응 [#11](https://github.com/cloud-barista/cb-store/issues/11)
 
 # v0.1.0-americano (2019.12.23.)
-
