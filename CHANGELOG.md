@@ -1,3 +1,16 @@
+# v0.3.0-cappuccino (2020.12.10.)
+### Feature
+- `go.mod` 파일 추가 (#17)
+- ETCD client 가 제대로 구성되지 않을 경우에 Store 처리 메서드 호출되는 부분 검증 추가 (#19)
+
+### Bug Fix
+- Driver Initialize 시점을 GetStore 시점으로 변경 (#19)
+- NutsDB 버전 관련한 빌드 오류 부분 해결을 위한 go.mod 수정 (grpc 버전을 v1.26.0 으로 고정) (#19)
+- ETCD 환경이 없는 상태에서 ETCD Client 가 hang 걸리는 문제 해결을 위해 go.mod 수정 (Dial timeout 무시되는 문제) (#19)
+
+# v0.2.0-cappuccino (2020.06.01.)
+### Bug Fix
+- nutsdb 업데이트에 대한 대응 [#11](https://github.com/cloud-barista/cb-store/issues/11)
 
 # v0.2.0-cappuccino (2020.06.01.)
 ### Bug Fix
