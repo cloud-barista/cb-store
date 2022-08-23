@@ -11,8 +11,7 @@ replace (
 )
 
 require (
-	github.com/BurntSushi/toml v0.3.1 // indirect
-	github.com/cloud-barista/cb-log v0.5.0
+	github.com/cloud-barista/cb-log v0.6.1
 	github.com/coreos/bbolt v0.0.0-00010101000000-000000000000 // indirect
 	github.com/coreos/etcd v3.3.27+incompatible // indirect
 	github.com/coreos/go-semver v0.3.0 // indirect
@@ -40,12 +39,11 @@ require (
 	go.uber.org/multierr v1.7.0 // indirect
 	go.uber.org/zap v1.19.1 // indirect
 	golang.org/x/net v0.0.0-20211206223403-eba003a116a9 // indirect
-	golang.org/x/sys v0.0.0-20211205182925-97ca703d548d // indirect
 	golang.org/x/text v0.3.7 // indirect
 	golang.org/x/time v0.0.0-20211116232009-f0f3c7e86c11 // indirect
 	google.golang.org/genproto v0.0.0-20211206220100-3cb06788ce7f // indirect
 	google.golang.org/grpc v1.42.0
-	gopkg.in/yaml.v3 v3.0.0-20210107192922-496545a6307b
+	gopkg.in/yaml.v3 v3.0.0
 	sigs.k8s.io/yaml v1.3.0 // indirect
 )
 
