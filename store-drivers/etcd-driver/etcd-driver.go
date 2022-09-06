@@ -15,10 +15,10 @@ import (
 	"time"
 
 	// GetList 에서 ETCD 환경이 구성되지 않았을 경우에 No Response 상태 방지용.
-	"github.com/etcd-io/etcd/clientv3"
-	"google.golang.org/grpc"
-
+	// "github.com/etcd-io/etcd/clientv3"
 	// "go.etcd.io/etcd/clientv3"
+	"google.golang.org/grpc"
+	"go.etcd.io/etcd/client/v3"
 
 	"github.com/cloud-barista/cb-store/config"
 	icbs "github.com/cloud-barista/cb-store/interfaces"
