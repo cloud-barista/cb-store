@@ -21,11 +21,11 @@ If you have any difficulties in using cb-store, please let us know.
 ***
 
 # 1.	install cb-store library pkg
--	$ go get github.com/cloud-barista/cb-store  
+-	$ git clone https://github.com/cloud-barista/cb-store.git $HOME/cb-store; 
  
-- $ export CBSTORE_ROOT=~/go/src/github.com/cloud-barista/cb-store
+- $ export CBSTORE_ROOT=$HOME/cb-store
     
-- $ vi conf/store_conf.yaml # set up storetype(NUTSDB|ETCD)
+- $ vi $CBSTORE_ROOT/conf/store_conf.yaml # set up storetype(NUTSDB|ETCD)
   
 # 2.	example & test
 - example: https://github.com/cloud-barista/cb-store/blob/master/test/test.go
