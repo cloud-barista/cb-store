@@ -7,7 +7,7 @@ require (
 	github.com/sirupsen/logrus v1.9.0
 	github.com/xujiajun/nutsdb v0.10.0
 	go.etcd.io/etcd/client/v3 v3.5.4
-	google.golang.org/grpc v1.49.0
+	google.golang.org/grpc v1.53.0
 	gopkg.in/yaml.v3 v3.0.1
 )
 
@@ -29,7 +29,7 @@ require (
 	golang.org/x/net v0.7.0 // indirect
 	golang.org/x/sys v0.5.0 // indirect
 	golang.org/x/text v0.7.0 // indirect
-	google.golang.org/genproto v0.0.0-20220829175752-36a9c930ecbf // indirect
+	google.golang.org/genproto v0.0.0-20230110181048-76db0878b65f // indirect
 	google.golang.org/protobuf v1.28.1 // indirect
 	gopkg.in/natefinch/lumberjack.v2 v2.0.0 // indirect
 )
