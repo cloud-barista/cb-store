@@ -3,7 +3,7 @@ module github.com/cloud-barista/cb-store
 go 1.19
 
 require (
-	github.com/cloud-barista/cb-log v0.6.3
+	github.com/cloud-barista/cb-log v0.8.2
 	github.com/sirupsen/logrus v1.9.0
 	github.com/xujiajun/nutsdb v0.10.0
 	go.etcd.io/etcd/client/v3 v3.5.4

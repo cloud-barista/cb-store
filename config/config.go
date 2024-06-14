@@ -44,6 +44,19 @@ func init() {
 	Cblogger = cblog.GetLogger("CLOUD-BARISTA") // by powerkim, 2019.09.24
 }
 
+func NewCBSTORECONFIG() CBSTORECONFIG {
+    config := CBSTORECONFIG{}
+
+    config.STORETYPE = "NUTSDB" // default store type
+
+    config.NUTSDB.DBPATH = "./meta_db/dat"
+    config.NUTSDB.SEGMENTSIZE = 1048576  // 1048576 1024*1024 (1MB)
+
+    config.ETCD.ETCDSERVERPORT = "localhost:2379"
+
+    return config
+}
+
 func load(filePath string) ([]byte, error) {
 	data, err := ioutil.ReadFile(filePath)
 	return data, err
@@ -56,8 +69,9 @@ func GetConfigInfos() *CBSTORECONFIG {
 
 	cbstoreRootPath := os.Getenv("CBSTORE_ROOT")
 	if cbstoreRootPath == "" {
-		Cblogger.Error("$CBSTORE_ROOT is not set!!")
-		os.Exit(1)
+	    Cblogger.Info("CBSTORE_ROOT is not set. Using default configuration")
+	    config := NewCBSTORECONFIG()
+	    return &config
 	}
 
 	data, err := load(cbstoreRootPath + "/conf/store_conf.yaml")
@@ -74,12 +88,12 @@ func GetConfigInfos() *CBSTORECONFIG {
 		panic(err)
 	}
 
-	configInfo.NUTSDB.DBPATH = ReplaceEnvPath(configInfo.NUTSDB.DBPATH)
+	configInfo.NUTSDB.DBPATH = replaceEnvPath(configInfo.NUTSDB.DBPATH)
 	return configInfo
 }
 
 // $ABC/def ==> /abc/def
-func ReplaceEnvPath(str string) string {
+func replaceEnvPath(str string) string {
 	if strings.Index(str, "$") == -1 {
 		return str
 	}
