@@ -1,10 +1,10 @@
 module github.com/cloud-barista/cb-store
 
-go 1.19
+go 1.23.0
 
 require (
 	github.com/cloud-barista/cb-log v0.8.2
-	github.com/sirupsen/logrus v1.9.0
+	github.com/sirupsen/logrus v1.9.1
 	github.com/xujiajun/nutsdb v0.10.0
 	go.etcd.io/etcd/client/v3 v3.5.4
 	google.golang.org/grpc v1.56.3
