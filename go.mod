@@ -7,7 +7,7 @@ require (
 	github.com/sirupsen/logrus v1.9.1
 	github.com/xujiajun/nutsdb v0.10.0
 	go.etcd.io/etcd/client/v3 v3.5.4
-	google.golang.org/grpc v1.82.1
+	google.golang.org/grpc v1.83.1
 	gopkg.in/yaml.v3 v3.0.1
 )
 
